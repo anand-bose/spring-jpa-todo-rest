@@ -1,6 +1,4 @@
-package com.example.todo;
-
-import com.example.todo.data.TaskStatus;
+package com.example.todo.data;
 
 public record TodoUpdateRequest(String description, TaskStatus status) {
 

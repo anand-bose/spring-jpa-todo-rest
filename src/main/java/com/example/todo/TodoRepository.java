@@ -12,9 +12,9 @@ import com.example.todo.data.TodoEntity;
 
 public interface TodoRepository extends CrudRepository<TodoEntity, Long>, PagingAndSortingRepository<TodoEntity, Long> {
 
-	@Query("SELECT todo FROM TodoEntity todo WHERE todo.deletedOn IS NULL")
-	public Page<TodoEntity> findAllExistingTodos(Pageable pageable);
+	@Query("SELECT todo FROM TodoEntity todo WHERE todo.userId = ?1 AND todo.deletedOn IS NULL")
+	public Page<TodoEntity> findAllExistingTodos(String userId, Pageable page);
 	
-	@Query("SELECT todo FROM TodoEntity todo WHERE todo.id = ?1 AND todo.deletedOn IS NULL")
-	public Optional<TodoEntity> findByIdIfNotDeleted(Long id);
+	@Query("SELECT todo FROM TodoEntity todo WHERE todo.userId = ?1 AND todo.id = ?2 AND todo.deletedOn IS NULL")
+	public Optional<TodoEntity> findByIdIfNotDeleted(String userId, Long id);
 }

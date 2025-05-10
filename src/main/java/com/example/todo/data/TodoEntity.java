@@ -3,6 +3,7 @@ package com.example.todo.data;
 import java.util.Date;
 import java.util.Objects;
 
+import jakarta.annotation.Nonnull;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -18,6 +19,7 @@ public class TodoEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@Nonnull
 	private String description;
 
 	@Enumerated(EnumType.STRING)
@@ -29,6 +31,9 @@ public class TodoEntity {
 
 	private Date deletedOn;
 
+	@Nonnull
+	private String userId;
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -38,7 +43,10 @@ public class TodoEntity {
 		if (getClass() != obj.getClass())
 			return false;
 		TodoEntity other = (TodoEntity) obj;
-		return Objects.equals(description, other.description) && Objects.equals(id, other.id) && status == other.status;
+		return Objects.equals(createdOn, other.createdOn) && Objects.equals(deletedOn, other.deletedOn)
+				&& Objects.equals(description, other.description) && Objects.equals(id, other.id)
+				&& status == other.status && Objects.equals(updatedOn, other.updatedOn)
+				&& Objects.equals(userId, other.userId);
 	}
 
 	public Date getCreatedOn() {
@@ -65,9 +73,13 @@ public class TodoEntity {
 		return updatedOn;
 	}
 
+	public String getUserId() {
+		return userId;
+	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(description, id, status);
+		return Objects.hash(createdOn, deletedOn, description, id, status, updatedOn, userId);
 	}
 
 	public void setCreatedOn(Date createdOn) {
@@ -92,5 +104,15 @@ public class TodoEntity {
 
 	public void setUpdatedOn(Date updatedOn) {
 		this.updatedOn = updatedOn;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	@Override
+	public String toString() {
+		return "TodoEntity [id=" + id + ", description=" + description + ", status=" + status + ", createdOn="
+				+ createdOn + ", updatedOn=" + updatedOn + ", deletedOn=" + deletedOn + ", userId=" + userId + "]";
 	}
 }

@@ -1,6 +1,7 @@
 package com.example.todo;
 
 import java.net.URI;
+import java.security.Principal;
 import java.util.Calendar;
 import java.util.Optional;
 
@@ -19,7 +20,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.example.todo.data.TaskStatus;
+import com.example.todo.data.TodoCreateRequest;
 import com.example.todo.data.TodoEntity;
+import com.example.todo.data.TodoResponse;
+import com.example.todo.data.TodoUpdateRequest;
 
 @RestController
 @RequestMapping("/todo")
@@ -32,21 +36,24 @@ public class TodoController {
 	}
 
 	@GetMapping
-	public ResponseEntity<PagedModel<TodoResponse>> getAllTodos(Pageable pageable) {
-		Page<TodoResponse> todos = repository.findAllExistingTodos(pageable).map(TodoResponse::fromTodoEntity);
+	public ResponseEntity<PagedModel<TodoResponse>> getAllTodos(Pageable pageable, Principal principal) {
+		Page<TodoResponse> todos = repository.findAllExistingTodos(principal.getName(), pageable)
+				.map(TodoResponse::fromTodoEntity);
 		PagedModel<TodoResponse> model = new PagedModel<>(todos);
 		return ResponseEntity.ok(model);
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<TodoResponse> getTodoById(@PathVariable Long id) {
-		return repository.findByIdIfNotDeleted(id).map(item -> ResponseEntity.ok(TodoResponse.fromTodoEntity(item)))
+	public ResponseEntity<TodoResponse> getTodoById(@PathVariable Long id, Principal principal) {
+		return repository.findByIdIfNotDeleted(principal.getName(), id)
+				.map(item -> ResponseEntity.ok(TodoResponse.fromTodoEntity(item)))
 				.orElseGet(() -> ResponseEntity.notFound().build());
 	}
 
 	@PatchMapping("/{id}")
-	public ResponseEntity<Void> updateTodoItem(@PathVariable Long id, @RequestBody TodoUpdateRequest request) {
-		Optional<TodoEntity> todoEntityOptional = repository.findByIdIfNotDeleted(id);
+	public ResponseEntity<Void> updateTodoItem(@PathVariable Long id, @RequestBody TodoUpdateRequest request,
+			Principal principal) {
+		Optional<TodoEntity> todoEntityOptional = repository.findByIdIfNotDeleted(principal.getName(), id);
 		if (todoEntityOptional.isPresent()) {
 			TodoEntity entity = todoEntityOptional.get();
 			String description = request.description();
@@ -71,20 +78,22 @@ public class TodoController {
 	}
 
 	@PostMapping
-	public ResponseEntity<Void> createTodoItem(@RequestBody TodoCreateRequest request, UriComponentsBuilder ucb) {
+	public ResponseEntity<Void> createTodoItem(@RequestBody TodoCreateRequest request, UriComponentsBuilder ucb,
+			Principal principal) {
 		TodoEntity todo = new TodoEntity();
 		todo.setDescription(request.description());
 		todo.setStatus(TaskStatus.TODO);
 		todo.setCreatedOn(Calendar.getInstance().getTime());
 		todo.setUpdatedOn(Calendar.getInstance().getTime());
+		todo.setUserId(principal.getName());
 		todo = repository.save(todo);
 		URI location = ucb.path("todo/{id}").buildAndExpand(todo.getId()).toUri();
 		return ResponseEntity.created(location).build();
 	}
-	
+
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> deleteTodoItem(@PathVariable Long id) {
-		Optional<TodoEntity> entityOptional = repository.findByIdIfNotDeleted(id);
+	public ResponseEntity<Void> deleteTodoItem(@PathVariable Long id, Principal principal) {
+		Optional<TodoEntity> entityOptional = repository.findByIdIfNotDeleted(principal.getName(), id);
 		if (entityOptional.isEmpty()) {
 			return ResponseEntity.notFound().build();
 		}

@@ -1,9 +1,6 @@
-package com.example.todo;
+package com.example.todo.data;
 
 import java.util.Date;
-
-import com.example.todo.data.TaskStatus;
-import com.example.todo.data.TodoEntity;
 
 public record TodoResponse(Long id, String description, TaskStatus status, Date createdOn, Date updatedOn) {
 	public static TodoResponse fromTodoEntity(TodoEntity entity) {
