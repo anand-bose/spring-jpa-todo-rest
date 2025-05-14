@@ -1,4 +1,4 @@
-package com.example.todo;
+package dev.anandbose.todoapp;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.startsWith;
@@ -25,10 +25,11 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
-import com.example.todo.data.TaskStatus;
-import com.example.todo.data.TodoCreateRequest;
-import com.example.todo.data.TodoUpdateRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import dev.anandbose.todoapp.data.TaskStatus;
+import dev.anandbose.todoapp.data.TodoCreateRequest;
+import dev.anandbose.todoapp.data.TodoUpdateRequest;
 
 @SpringBootTest
 @AutoConfigureMockMvc

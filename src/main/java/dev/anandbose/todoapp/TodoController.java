@@ -1,4 +1,4 @@
-package com.example.todo;
+package dev.anandbose.todoapp;
 
 import java.net.URI;
 import java.security.Principal;
@@ -19,11 +19,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.example.todo.data.TaskStatus;
-import com.example.todo.data.TodoCreateRequest;
-import com.example.todo.data.TodoEntity;
-import com.example.todo.data.TodoResponse;
-import com.example.todo.data.TodoUpdateRequest;
+import dev.anandbose.todoapp.data.TaskStatus;
+import dev.anandbose.todoapp.data.TodoCreateRequest;
+import dev.anandbose.todoapp.data.TodoEntity;
+import dev.anandbose.todoapp.data.TodoResponse;
+import dev.anandbose.todoapp.data.TodoUpdateRequest;
 
 @RestController
 @RequestMapping("/todo")

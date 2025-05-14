@@ -1,4 +1,4 @@
-package com.example.todo;
+package dev.anandbose.todoapp;
 
 import java.util.Optional;
 
@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-import com.example.todo.data.TodoEntity;
+import dev.anandbose.todoapp.data.TodoEntity;
 
 public interface TodoRepository extends CrudRepository<TodoEntity, Long>, PagingAndSortingRepository<TodoEntity, Long> {
 

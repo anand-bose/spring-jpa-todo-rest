@@ -1,4 +1,4 @@
-package com.example.todo.data;
+package dev.anandbose.todoapp.data;
 
 public record TodoCreateRequest(String description) {
 

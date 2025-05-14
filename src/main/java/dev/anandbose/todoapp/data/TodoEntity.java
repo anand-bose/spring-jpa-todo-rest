@@ -1,4 +1,4 @@
-package com.example.todo.data;
+package dev.anandbose.todoapp.data;
 
 import java.util.Date;
 import java.util.Objects;

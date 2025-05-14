@@ -1,4 +1,4 @@
-package com.example.todo.data;
+package dev.anandbose.todoapp.data;
 
 public enum TaskStatus {
 	TODO, DONE
