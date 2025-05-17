@@ -80,7 +80,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"status\": \"DONE\"\n}",
+					"raw": "{\n    \"status\": \"TODO\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -149,16 +149,51 @@
 		}
 	],
 	"auth": {
-		"type": "basic",
-		"basic": [
+		"type": "oauth2",
+		"oauth2": [
 			{
-				"key": "password",
-				"value": "abc123",
+				"key": "scope",
+				"value": "openid todo.read",
 				"type": "string"
 			},
 			{
-				"key": "username",
-				"value": "anand",
+				"key": "grant_type",
+				"value": "authorization_code_with_pkce",
+				"type": "string"
+			},
+			{
+				"key": "clientSecret",
+				"value": "secret",
+				"type": "string"
+			},
+			{
+				"key": "clientId",
+				"value": "todo-client",
+				"type": "string"
+			},
+			{
+				"key": "accessTokenUrl",
+				"value": "http://localhost:9000/oauth2/token",
+				"type": "string"
+			},
+			{
+				"key": "authUrl",
+				"value": "http://localhost:9000/oauth2/authorize",
+				"type": "string"
+			},
+			{
+				"key": "redirect_uri",
+				"value": "http://127.0.0.1:8080/login/oauth2/code/articles-client-oidc",
+				"type": "string"
+			},
+			{
+				"key": "tokenName",
+				"value": "token",
+				"type": "string"
+			},
+			{
+				"key": "addTokenTo",
+				"value": "header",
 				"type": "string"
 			}
 		]
