@@ -2,7 +2,7 @@ server:
   port: 8080
 spring:
   application:
-    name: todo-app-server
+    name: todo-resource-server
   jpa:
     show-sql: true
     properties:

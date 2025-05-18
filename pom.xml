@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>dev.anandbose.todoapp</groupId>
-	<artifactId>app-server</artifactId>
+	<artifactId>todo-resource-server</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>todo-app-server</name>
+	<name>todo-resource-server</name>
 	<description>A simple todo service</description>
 	<url/>
 	<licenses>
