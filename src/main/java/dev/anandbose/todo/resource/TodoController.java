@@ -1,4 +1,4 @@
-package dev.anandbose.todoapp;
+package dev.anandbose.todo.resource;
 
 import java.net.URI;
 import java.security.Principal;
@@ -19,11 +19,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import dev.anandbose.todoapp.data.TaskStatus;
-import dev.anandbose.todoapp.data.TodoCreateRequest;
-import dev.anandbose.todoapp.data.TodoEntity;
-import dev.anandbose.todoapp.data.TodoResponse;
-import dev.anandbose.todoapp.data.TodoUpdateRequest;
+import dev.anandbose.todo.resource.data.TaskStatus;
+import dev.anandbose.todo.resource.data.TodoCreateRequest;
+import dev.anandbose.todo.resource.data.TodoEntity;
+import dev.anandbose.todo.resource.data.TodoResponse;
+import dev.anandbose.todo.resource.data.TodoUpdateRequest;
 
 @RestController
 @RequestMapping("/todo")

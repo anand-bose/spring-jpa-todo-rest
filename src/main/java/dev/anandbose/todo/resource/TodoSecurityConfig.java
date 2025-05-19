@@ -1,4 +1,4 @@
-package dev.anandbose.todoapp;
+package dev.anandbose.todo.resource;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

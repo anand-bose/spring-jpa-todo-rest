@@ -1,4 +1,4 @@
-package dev.anandbose.todoapp;
+package dev.anandbose.todo.resource;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.startsWith;
@@ -27,9 +27,9 @@ import org.springframework.test.web.servlet.MvcResult;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import dev.anandbose.todoapp.data.TaskStatus;
-import dev.anandbose.todoapp.data.TodoCreateRequest;
-import dev.anandbose.todoapp.data.TodoUpdateRequest;
+import dev.anandbose.todo.resource.data.TaskStatus;
+import dev.anandbose.todo.resource.data.TodoCreateRequest;
+import dev.anandbose.todo.resource.data.TodoUpdateRequest;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -54,7 +54,7 @@ class TodoApplicationTests {
 
 	@Test
 	@DirtiesContext
-	@WithMockUser(username = "anand", password = "abc123")
+	@WithMockUser(authorities = { "SCOPE_todo.read", "SCOPE_todo.write" }, username = "anand", password = "abc123")
 	void shouldCreateATodoItem() throws Exception {
 		String todoText = "Test todo item";
 		URI uri = insertATodoItemAndReturnLocation(todoText);
@@ -65,7 +65,7 @@ class TodoApplicationTests {
 
 	@Test
 	@DirtiesContext
-	@WithMockUser(username = "anand", password = "abc123")
+	@WithMockUser(authorities = { "todo.read", "todo.write" }, username = "anand", password = "abc123")
 	public void shouldDeleteATodoItemSpecifiedById() throws Exception {
 		URI uri = insertATodoItemAndReturnLocation("A todo item to test deletion");
 		mvc.perform(delete(uri)).andExpect(status().isNoContent());
@@ -78,7 +78,7 @@ class TodoApplicationTests {
 	}
 
 	@Test
-	@WithMockUser(username = "anand", password = "abc123")
+	@WithMockUser(authorities = { "SCOPE_todo.read", "SCOPE_todo.write" }, username = "anand", password = "abc123")
 	@DirtiesContext
 	public void shouldNotAccessOthersTodoItems() throws Exception {
 		String todoText = "Test todo item";
@@ -92,7 +92,7 @@ class TodoApplicationTests {
 
 	@Test
 	@DirtiesContext
-	@WithMockUser(username = "anand", password = "abc123")
+	@WithMockUser(authorities = { "SCOPE_todo.read", "SCOPE_todo.write" }, username = "anand", password = "abc123")
 	void shouldReturnAllTodoItems() throws Exception {
 		List<String> todoItems = List.of("Todo 1", "Todo 2", "Todo 3", "Todo 4", "Todo 5");
 		for (String todoItem : todoItems) {
@@ -105,14 +105,14 @@ class TodoApplicationTests {
 	}
 
 	@Test
-	@WithMockUser(username = "anand", password = "abc123")
+	@WithMockUser(authorities = { "SCOPE_todo.read", "SCOPE_todo.write" }, username = "anand", password = "abc123")
 	void shouldReturnNotFoundOnInvalidId() throws Exception {
 		mvc.perform(get("/todo/9999")).andExpect(status().isNotFound());
 	}
 
 	@Test
 	@DirtiesContext
-	@WithMockUser(username = "anand", password = "abc123")
+	@WithMockUser(authorities = { "SCOPE_todo.read", "SCOPE_todo.write" }, username = "anand", password = "abc123")
 	void shouldUpdateATodoItem() throws Exception {
 		String todoText = "Test todo item 2";
 		String updatedTodoText = "Test todo item 3";

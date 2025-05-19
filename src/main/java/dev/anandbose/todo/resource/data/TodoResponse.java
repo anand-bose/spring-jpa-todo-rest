@@ -1,4 +1,4 @@
-package dev.anandbose.todoapp.data;
+package dev.anandbose.todo.resource.data;
 
 import java.util.Date;
 
